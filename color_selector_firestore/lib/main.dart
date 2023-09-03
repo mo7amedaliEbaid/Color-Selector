@@ -1,3 +1,5 @@
+import 'package:color_picker/screens/authentication/authentication.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -7,6 +9,7 @@ import 'package:url_strategy/url_strategy.dart';
 import 'package:window_manager/window_manager.dart';
 
 import './screens/root.dart';
+import 'firebase_options.dart';
 import 'lang/lang.dart';
 import 'db/database_manager.dart' as db;
 
@@ -29,6 +32,9 @@ bool get isDesktop {
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,);
 
   utils.preferences = await SharedPreferences.getInstance();
 
@@ -104,7 +110,7 @@ class MyApp extends StatelessWidget {
               Locale('en', ''), // English, no country code
               Locale('pt', ''), // Portuguese, no country code
             ],
-            home: const Root(),
+            home: const AuthenticationPage(),
           ),
         );
       },
