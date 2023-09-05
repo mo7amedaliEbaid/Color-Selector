@@ -16,10 +16,7 @@ class AuthenticationPage extends StatefulWidget {
 }
 
 class _AuthenticationPageState extends State<AuthenticationPage> {
- // final RegisterController registerController = Get.put(RegisterController());
 
-  /*final LoggedUserController loggedUserController =
-      Get.put(LoggedUserController());*/
 TextEditingController _emailcontroller=TextEditingController();
 TextEditingController _usernamecontroller=TextEditingController();
 TextEditingController _passwordcontroller=TextEditingController();
@@ -159,8 +156,7 @@ TextEditingController _passwordcontroller=TextEditingController();
                         });
                       },
                       decoration: InputDecoration(
-                        //  focusColor: active,
-                          //hoverColor: active,
+
                           labelText: "Username",
                           hintText: "jdoe123",
                           errorText: isEditingUsername
@@ -234,24 +230,7 @@ TextEditingController _passwordcontroller=TextEditingController();
               const SizedBox(
                 height: 15,
               ),
-              /*isLoginScreen
-                  ? Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Checkbox(value: true, onChanged: (value) {}),
-                            const CustomText(
-                              text: "Remeber Me",
-                            ),
-                          ],
-                        ),
-                        CustomText(text: "Forgot password?", color: active)
-                      ],
-                    )
-                  : const SizedBox(
-                      height: 1,
-                    ),*/
+
               const SizedBox(
                 height: 15,
               ),
@@ -315,47 +294,7 @@ TextEditingController _passwordcontroller=TextEditingController();
               const SizedBox(
                 height: 15,
               ),
-          /*    isLoginScreen
-                  ? Center(
-                      child: SignInButton(
-                      Buttons.Google,
-                      text: "Sign in with Google",
-                      onPressed: () {
-                        signInWithGoogle().then((result) {
-                          if (result != null) {
-                            menuController
-                                .changeActiveItemTo(overViewPageDisplayName);
-                            Get.offAllNamed(rootRoute);
-                          }
-                        }).catchError((e) {
-                          var snackbar = const SnackBar(
-                              width: 500,
-                              padding: EdgeInsets.all(10),
-                              behavior: SnackBarBehavior.floating,
-                              shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
-                              ),
-                              duration: Duration(seconds: 3),
-                              dismissDirection: DismissDirection.horizontal,
-                              closeIconColor: Colors.white,
-                              backgroundColor: Colors.redAccent,
-                              content: Center(
-                                child: Text(
-                                  "Error, please try again later!",
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ));
-                          ScaffoldMessenger.of(context).showSnackBar(snackbar);
-                        });
-                      },
-                    ))
-                  : const SizedBox(
-                      height: 1,
-                    ),*/
+
             ],
           ),
         ),
@@ -364,36 +303,4 @@ TextEditingController _passwordcontroller=TextEditingController();
   }
 }
 
-/*class CookieManager {
-  static CookieManager manager = CookieManager.getInstance();
 
-  static getInstance() {
-    return manager;
-  }
-
-  void addCookie(String key, String value) {
-    // 2592000 sec = 30 days.
-    document.cookie =
-        "$key=$value; max-age=2592000; path=/; SameSite=Lax; Secure";
-  }
-
-  String getCookie(String name) {
-    String? cookies = document.cookie;
-    List<String> listValues = cookies!.isNotEmpty ? cookies.split(";") : [];
-    String matchVal = "";
-    for (int i = 0; i < listValues.length; i++) {
-      List<String> map = listValues[i].split("=");
-      String key = map[0].trim();
-      String val = map[1].trim();
-      if (name == key) {
-        matchVal = val;
-        break;
-      }
-    }
-    return matchVal;
-  }
-
-  void removeCookie(String name) {
-    document.cookie = "$name=; max-age=0; path=/; SameSite=Lax; Secure";
-  }
-}*/
