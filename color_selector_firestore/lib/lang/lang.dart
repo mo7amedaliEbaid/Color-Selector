@@ -6,7 +6,7 @@ import '../utils.dart';
 import '../main.dart';
 
 import 'langs/en_lang.dart';
-import 'langs/pt_lang.dart';
+import 'langs/ar_lang.dart';
 
 abstract class Language {
   static List<Language> get languages => [English(), Portuguese()];
@@ -22,7 +22,7 @@ abstract class Language {
       locale ??= Localizations.localeOf(context).languageCode;
     }
     switch (locale) {
-      case 'pt':
+      case 'ar':
         lang = Portuguese();
         break;
       case 'en':

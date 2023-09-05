@@ -82,9 +82,11 @@ TextEditingController _passwordcontroller=TextEditingController();
             children: [
               Row(
                 children: [
-                  Padding(
+                  Container(
                     padding: const EdgeInsets.only(right: 12),
-                    child: Image.asset("assets/icons/logo.png"),
+                    height:50,
+                    width: 50,
+                    child: Image.asset("assets/logo.png"),
                   ),
                   Expanded(child: Container()),
                 ],
@@ -106,7 +108,7 @@ TextEditingController _passwordcontroller=TextEditingController();
                 children: [
                   Text(
                   isLoginScreen
-                        ? "Welcome back to the admin panel."
+                        ? "Welcome back to the color selector."
                         : "Create an account to access.",
                     style: TextStyle(color: Colors.lightBlue),
 
@@ -119,26 +121,6 @@ TextEditingController _passwordcontroller=TextEditingController();
                  isLoginScreen
                         ? "If you do not want to create an account "
                         : "You can use fake information",
-                    style: TextStyle(color: Colors.lightBlue),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                  isLoginScreen
-                        ? "you can use the next demo account: "
-                        : "to test the app. The information",
-                    style: TextStyle(color: Colors.lightBlue),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                 isLoginScreen
-                        ? "test@email.com, 123456"
-                        : "will be stored in Firebase.",
                     style: TextStyle(color: Colors.lightBlue),
                   ),
                 ],

@@ -4,29 +4,29 @@ import 'package:color_picker/lang/lang.dart';
 import 'package:flutter/material.dart';
 
 class Portuguese extends Language {
-  String get code => 'pt';
-  String get langName => 'Português';
+  String get code => 'ar';
+  String get langName => 'Arabic';
 
-  String get title => 'Seletor de cores';
+  String get title => 'محدد الالوان';
 
-  String get wheelPicker => 'Roda';
-  String get palettePicker => 'Paleta';
-  String get valuePicker => 'Valores';
-  String get namedPicker => 'Nomes';
-  String get imagePicker => 'Imagens';
+  String get wheelPicker => 'عجلة';
+  String get palettePicker => 'طبق';
+  String get valuePicker => 'قيمة';
+  String get namedPicker => 'أسم';
+  String get imagePicker => 'صورة';
 
-  String get red => 'Vermelho (Red)';
-  String get green => 'Verde (Green)';
-  String get blue => 'Azul (Blue)';
+  String get red => 'اللون الاحمر (Red)';
+  String get green => 'اللون الاخضر (Green)';
+  String get blue => 'الازرق (Blue)';
   String get alpha => 'Alpha';
 
-  String get hexCode => 'Código hexadecimal';
-  String get hex => 'Hexadecimal';
-  String get cssHex => 'Hexadecimal do CSS';
-  String get clear => 'Limpar';
-  String get hexCodeMustNotBeEmpty => 'Código hexadecimal não pode estar vazio';
+  String get hexCode => 'هكس كود';
+  String get hex => 'هكس';
+  String get cssHex => 'css كود';
+  String get clear => 'امسح';
+  String get hexCodeMustNotBeEmpty => 'هكس كود لا يجب ان يكون خالى';
   String get hexCodeLengthMustBeSix =>
-      'O tamanho do código hexadecimal deve ser de 6 caracteres de 0 a 9 e de A a F';
+      'هكس كود يجب ان يكون ستة عناصر';
   String get hexCodeLimitedChars =>
       'O código hexadecimal só pode ter caracteres de 0 a 9 e de A a F';
   String get hexCodeOpacity =>
@@ -107,18 +107,18 @@ class Portuguese extends Language {
   String get purple => 'Roxo';
   String get deepPurple => 'Roxo escuro';
   String get indigo => 'Azul escuro';
-  String get blueColor => 'Azul';
-  String get lightBlue => 'Azul claro';
-  String get cyan => 'Ciano';
-  String get teal => 'Teal';
-  String get grey => 'Cinza';
-  String get blueGrey => 'Azul acinzentado';
-  String get greenColor => 'Verde';
-  String get lightGreen => 'Verde claro';
-  String get lime => 'Verde limão';
-  String get yellow => 'Amarelo';
-  String get amber => 'Âmbar (Laranja-amarelo)';
-  String get orange => 'Laranja';
-  String get deepOrange => 'Laranja escuro';
-  String get brown => 'Marrom';
+  String get blueColor => 'ازرق';
+  String get lightBlue => 'ازرق فاتح';
+  String get cyan => 'سماوى';
+  String get teal => 'تيل';
+  String get grey => 'رمادى';
+  String get blueGrey => 'ازرق رمادى';
+  String get greenColor => 'اخضر';
+  String get lightGreen => 'اخضر فاتح';
+  String get lime => 'ليمونى';
+  String get yellow => 'اصفر';
+  String get amber => 'عنبر';
+  String get orange => 'برتقالى';
+  String get deepOrange => 'برتقالى غامق';
+  String get brown => 'بنى';
 }
