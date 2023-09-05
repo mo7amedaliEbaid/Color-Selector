@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../theme_manager.dart';
+import '../../providers/theme_provider.dart';
 import '../../widgets/min_height.dart';
 
 import 'rgb_value_picker.dart';
@@ -45,7 +45,7 @@ class _ValueHomeState extends State<ValueHome>
                 borderSide: BorderSide(color: Colors.blue.shade800),
               ),
               labelColor:
-                  ThemeManager.isBright(context) ? Colors.black : Colors.white,
+                  ThemeProvider.isBright(context) ? Colors.black : Colors.white,
             ),
           ),
           body: const Padding(

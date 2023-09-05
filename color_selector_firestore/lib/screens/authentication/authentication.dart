@@ -4,9 +4,9 @@ import 'dart:html';
 import 'package:color_picker/screens/root.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../custom_auth.dart';
-
+import '../../providers/auth_provider.dart';
 
 class AuthenticationPage extends StatefulWidget {
   const AuthenticationPage({Key? key}) : super(key: key);
@@ -16,10 +16,9 @@ class AuthenticationPage extends StatefulWidget {
 }
 
 class _AuthenticationPageState extends State<AuthenticationPage> {
-
-TextEditingController _emailcontroller=TextEditingController();
-TextEditingController _usernamecontroller=TextEditingController();
-TextEditingController _passwordcontroller=TextEditingController();
+  TextEditingController _emailcontroller = TextEditingController();
+  TextEditingController _usernamecontroller = TextEditingController();
+  TextEditingController _passwordcontroller = TextEditingController();
 
   final FocusNode emailFocus = FocusNode();
   final FocusNode passwordFocus = FocusNode();
@@ -73,7 +72,8 @@ TextEditingController _passwordcontroller=TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+        body: Consumer<AuthProvider>(builder: (context, authdata, _) {
+      return Center(
         child: Container(
           constraints: const BoxConstraints(maxWidth: 400),
           padding: const EdgeInsets.all(24),
@@ -84,7 +84,7 @@ TextEditingController _passwordcontroller=TextEditingController();
                 children: [
                   Container(
                     padding: const EdgeInsets.only(right: 12),
-                    height:50,
+                    height: 50,
                     width: 50,
                     child: Image.asset("assets/logo.png"),
                   ),
@@ -97,8 +97,8 @@ TextEditingController _passwordcontroller=TextEditingController();
               Row(
                 children: [
                   Text(isLoginScreen ? "Login" : "Create your account",
-                      style: TextStyle(
-                          fontSize: 30, fontWeight: FontWeight.bold)),
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
                 ],
               ),
               const SizedBox(
@@ -107,20 +107,19 @@ TextEditingController _passwordcontroller=TextEditingController();
               Row(
                 children: [
                   Text(
-                  isLoginScreen
+                    isLoginScreen
                         ? "Welcome back to the color selector."
                         : "Create an account to access.",
                     style: TextStyle(color: Colors.lightBlue),
-
                   ),
                 ],
               ),
               Row(
                 children: [
                   Text(
-                 isLoginScreen
-                        ? "If you do not want to create an account "
-                        : "You can use fake information",
+                    isLoginScreen
+                        ? "Login in with email and password "
+                        : "Register with email and password",
                     style: TextStyle(color: Colors.lightBlue),
                   ),
                 ],
@@ -138,12 +137,10 @@ TextEditingController _passwordcontroller=TextEditingController();
                         });
                       },
                       decoration: InputDecoration(
-
                           labelText: "Username",
                           hintText: "jdoe123",
                           errorText: isEditingUsername
-                              ? validateUsername(
-                                  _usernamecontroller.text)
+                              ? validateUsername(_usernamecontroller.text)
                               : null,
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(20))),
@@ -163,7 +160,6 @@ TextEditingController _passwordcontroller=TextEditingController();
                   });
                 },
                 decoration: InputDecoration(
-
                     labelText: "Email",
                     hintText: "abc@domain.com",
                     errorText: isEditingEmail
@@ -194,17 +190,16 @@ TextEditingController _passwordcontroller=TextEditingController();
                           });
                         },
                         child: Icon(
-                          passwordIsVisible
-                              ? Icons.visibility_off
-                              : Icons.visibility,
-                            color: Colors.lightBlue                        ),
+                            passwordIsVisible
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: Colors.lightBlue),
                       ),
                     ),
                     labelText: "Password",
                     hintText: "123456",
                     errorText: isEditingPassword
-                        ? validatePassword(
-                           _passwordcontroller.text)
+                        ? validatePassword(_passwordcontroller.text)
                         : null,
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(20))),
@@ -212,22 +207,41 @@ TextEditingController _passwordcontroller=TextEditingController();
               const SizedBox(
                 height: 15,
               ),
-
               const SizedBox(
                 height: 15,
               ),
               InkWell(
                 onTap: () async {
-                  var result = await userSignup(
-                      _usernamecontroller.text,
-                      _emailcontroller.text,
-                      _passwordcontroller.text);
-                  result==true?Navigator.of(context).push(MaterialPageRoute(builder: (context)=>Root())):
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Error has occured")));
+                  if(isRegistering){
+                    var result = await authdata.userSignup(
+                        _usernamecontroller.text,
+                        _emailcontroller.text,
+                        _passwordcontroller.text);
+                    result == true
+                        ?
+
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => Root()))
+                        : ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Error has occured")));
+                  }else{
+                    var result = await authdata.userLogin(
+                        _usernamecontroller.text,
+                        _emailcontroller.text,
+                        _passwordcontroller.text);
+                    result == true
+                        ? Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => Root()))
+                        : ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Error has occured")));
+                  }
+
                 },
                 child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20)),
+                  decoration:
+                      BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(20)),
                   alignment: Alignment.center,
                   width: double.maxFinite,
                   padding: const EdgeInsets.symmetric(vertical: 16),
@@ -236,8 +250,8 @@ TextEditingController _passwordcontroller=TextEditingController();
                           color: Colors.white,
                         )
                       : Text(
-                         isLoginScreen ? "Login" : "Register",
-                         style: TextStyle(color: Colors.white),
+                          isLoginScreen ? "Login" : "Register",
+                          style: TextStyle(color: Colors.white),
                         ),
                 ),
               ),
@@ -253,7 +267,7 @@ TextEditingController _passwordcontroller=TextEditingController();
                 ),
                 TextSpan(
                     text: isLoginScreen ? "Register! " : "Log In!",
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.blue),
                     recognizer: TapGestureRecognizer()
                       ..onTap = () {
                         setState(() {
@@ -261,28 +275,12 @@ TextEditingController _passwordcontroller=TextEditingController();
                         });
                       })
               ])),
-              const SizedBox(
-                height: 15,
-              ),
-              isLoginScreen
-                  ? const Center(
-                      child: Text(
-                      "-   Or   -",
-                      style: TextStyle(color: Colors.grey),
-                    ))
-                  : const SizedBox(
-                      height: 1,
-                    ),
-              const SizedBox(
-                height: 15,
-              ),
+
 
             ],
           ),
         ),
-      ),
-    );
+      );
+    }));
   }
 }
-
-

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../theme_manager.dart';
+import '../providers/theme_provider.dart';
 
 class ChessBoard extends StatelessWidget {
   const ChessBoard({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class ChessBoard extends StatelessWidget {
             if (!indexes.contains(index)) bright = !bright;
             return Container(
               color: () {
-                if (ThemeManager.isBright(context)) {
+                if (ThemeProvider.isBright(context)) {
                   return bright ? Colors.white : Colors.grey[600];
                 } else {
                   return bright ? Colors.grey : Colors.grey[900];

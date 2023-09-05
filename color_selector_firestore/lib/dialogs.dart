@@ -9,7 +9,7 @@ import 'screens/color_info/color_info.dart';
 
 import 'utils.dart';
 import 'main.dart';
-import 'theme_manager.dart';
+import 'providers/theme_provider.dart';
 
 class ThemeDialog extends StatelessWidget {
   const ThemeDialog({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class ThemeDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ThemeManager.of(context);
+    final theme = ThemeProvider.of(context);
     final lang = Language.of(context);
     return SimpleDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),

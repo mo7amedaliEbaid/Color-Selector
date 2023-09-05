@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../lang/lang.dart';
 
-import '../../../theme_manager.dart';
+import '../../../providers/theme_provider.dart';
 import 'local_selector.dart';
 import 'network_selector.dart';
 
@@ -26,7 +26,7 @@ class ImageSelector extends StatelessWidget {
                 Tab(text: lang.networkImage),
               ],
               labelColor:
-                  ThemeManager.isBright(context) ? Colors.black : Colors.white,
+                  ThemeProvider.isBright(context) ? Colors.black : Colors.white,
               indicatorSize: TabBarIndicatorSize.label,
               indicator: UnderlineTabIndicator(
                 borderSide: BorderSide(color: Colors.blue.shade800),
@@ -52,7 +52,7 @@ DecorationImage buildDecorationImage(BuildContext context) {
   return DecorationImage(
     image: const AssetImage('assets/checkerboard.png'),
     fit: BoxFit.fill,
-    colorFilter: ThemeManager.isBright(context)
+    colorFilter: ThemeProvider.isBright(context)
         ? null
         : ColorFilter.mode(
             Colors.grey.shade700,

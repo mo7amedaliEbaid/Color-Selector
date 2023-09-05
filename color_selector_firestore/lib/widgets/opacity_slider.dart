@@ -1,7 +1,7 @@
 import 'package:color_picker/lang/lang.dart';
 import 'package:flutter/material.dart';
 
-import '../theme_manager.dart';
+import '../providers/theme_provider.dart';
 
 class OpacitySlider extends StatelessWidget {
   const OpacitySlider({
@@ -29,7 +29,7 @@ class OpacitySlider extends StatelessWidget {
       Text(
         '${(value * 100.0).toInt()}%',
         style: TextStyle(
-          color: ThemeManager.isBright(context) ? Colors.black : Colors.white,
+          color: ThemeProvider.isBright(context) ? Colors.black : Colors.white,
         ),
       ),
       const SizedBox(width: 10),

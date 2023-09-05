@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:color/color.dart' hide Color;
 
 import '../../widgets/opacity_slider.dart';
-import '../../theme_manager.dart';
+import '../../providers/theme_provider.dart';
 
 import '../color_info/color_info.dart';
 
@@ -127,7 +127,7 @@ class Field extends StatelessWidget {
         IconButton(
           icon: Icon(
             Icons.close,
-            color: ThemeManager.isBright(context) ? null : Colors.black,
+            color: ThemeProvider.isBright(context) ? null : Colors.black,
           ),
           tooltip: 'Clear',
           onPressed: () => controller.clear(),

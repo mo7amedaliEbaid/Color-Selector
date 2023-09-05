@@ -5,7 +5,7 @@ import 'package:color/color.dart' hide Color;
 
 import 'package:color_picker/widgets/opacity_slider.dart';
 
-import '../../theme_manager.dart';
+import '../../providers/theme_provider.dart';
 import '../../clipboard.dart';
 import '../../lang/lang.dart';
 
@@ -91,7 +91,7 @@ class _ColorInfoState extends State<ColorInfo> {
         maxHeight: 92.0,
         child: DefaultTextStyle(
           style: TextStyle(
-            color: ThemeManager.isBright(context) ? Colors.black : Colors.white,
+            color: ThemeProvider.isBright(context) ? Colors.black : Colors.white,
           ),
           child: TabBarView(
             children: <Widget>[
@@ -111,7 +111,7 @@ class _ColorInfoState extends State<ColorInfo> {
     ]);
     TabBar tabBar = TabBar(
       isScrollable: true,
-      labelColor: ThemeManager.isBright(context) ? Colors.black : Colors.white,
+      labelColor: ThemeProvider.isBright(context) ? Colors.black : Colors.white,
       tabs: const <Widget>[
         Tab(text: 'RGB'),
         Tab(text: 'HEX'),
@@ -177,7 +177,7 @@ class _ColorInfoState extends State<ColorInfo> {
       borderRadius: radius,
       elevation: 8,
       color: widget.background ??
-          (ThemeManager.isBright(context)
+          (ThemeProvider.isBright(context)
               ? Colors.grey[200]
               : Colors.grey[900]),
       child: w,

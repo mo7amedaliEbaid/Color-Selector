@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'utils.dart';
+import '../utils.dart';
 
-class ThemeManager extends ChangeNotifier {
+class ThemeProvider extends ChangeNotifier {
   ThemeMode _mode = ThemeMode.system;
   ThemeMode get mode => _mode;
   set mode(ThemeMode mode) {
@@ -16,14 +16,14 @@ class ThemeManager extends ChangeNotifier {
 
   void notify() => notifyListeners();
 
-  ThemeManager(String theme) {
+  ThemeProvider(String theme) {
     if (theme == 'ThemeMode.system') _mode = ThemeMode.system;
     if (theme == 'ThemeMode.dark') _mode = ThemeMode.dark;
     if (theme == 'ThemeMode.light') _mode = ThemeMode.light;
   }
 
-  static ThemeManager of(BuildContext context, [bool listen = true]) =>
-      Provider.of<ThemeManager>(context, listen: listen);
+  static ThemeProvider of(BuildContext context, [bool listen = true]) =>
+      Provider.of<ThemeProvider>(context, listen: listen);
 
   static bool isBright(BuildContext context) =>
       Theme.of(context).brightness == Brightness.light;

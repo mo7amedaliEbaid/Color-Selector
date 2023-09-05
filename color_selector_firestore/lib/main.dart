@@ -1,3 +1,4 @@
+import 'package:color_picker/providers/auth_provider.dart';
 import 'package:color_picker/screens/authentication/authentication.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -14,7 +15,7 @@ import 'lang/lang.dart';
 import 'db/database_manager.dart' as db;
 
 import 'utils.dart' as utils;
-import 'theme_manager.dart';
+import 'providers/theme_provider.dart';
 
 part 'app_builder.dart';
 
@@ -34,7 +35,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,);
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   utils.preferences = await SharedPreferences.getInstance();
 
@@ -57,7 +59,11 @@ void main() async {
     });
   }
 
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(providers: [
+      ChangeNotifierProvider(create: (_) => AuthProvider()),
+    ], child: MyApp()),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -65,20 +71,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ThemeManager>(
-      create: (_) => ThemeManager(
+    return ChangeNotifierProvider<ThemeProvider>(
+      create: (_) => ThemeProvider(
         utils.preferences.getString('theme') ?? ThemeMode.system.toString(),
       ),
       builder: (context, child) {
-        final theme = ThemeManager.of(context);
+        final theme = ThemeProvider.of(context);
         return AppBuilder(
           key: _appBuilderKey,
           child: MaterialApp(
             onGenerateTitle: (_) => Language.of(null).title,
             debugShowCheckedModeBanner: false,
             themeMode: theme.mode,
-            darkTheme: ThemeManager.darkTheme,
-            theme: ThemeManager.lightTheme,
+            darkTheme: ThemeProvider.darkTheme,
+            theme: ThemeProvider.lightTheme,
             builder: (_, child) {
               child = ScrollConfiguration(
                 child: ClipRect(child: child!),

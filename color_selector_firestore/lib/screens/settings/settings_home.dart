@@ -4,7 +4,7 @@ import 'package:url_launcher/link.dart';
 
 import '../../lang/lang.dart';
 import '../../dialogs.dart';
-import '../../theme_manager.dart';
+import '../../providers/theme_provider.dart';
 
 import 'settings_tile.dart';
 
@@ -14,7 +14,7 @@ class SettingsHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lang = Language.of(context);
-    final theme = ThemeManager.of(context, false);
+    final theme = ThemeProvider.of(context, false);
     return ListView(
       padding: const EdgeInsets.only(left: 25, top: 75),
       children: <Widget>[

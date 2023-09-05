@@ -15,5 +15,5 @@ class AppBuilderState extends State<AppBuilder> {
   @override
   Widget build(context) => widget.child;
 
-  void update() => ThemeManager.of(context, false).notify();
+  void update() => ThemeProvider.of(context, false).notify();
 }

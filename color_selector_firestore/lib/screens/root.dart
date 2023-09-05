@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 
 import '../lang/lang.dart';
 import '../widgets/zoomed_scaffold.dart'as zoomed;
-import '../theme_manager.dart';
+import '../providers/theme_provider.dart';
 
 import 'palette_picker/palette_picker_home.dart';
 import 'wheel_picker/color_picker_wheel_home.dart';
@@ -48,7 +48,7 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
       controller: menuController,
       menuScreen: const SettingsHome(),
       menuColor:
-          ThemeManager.isBright(context) ? Colors.white : Colors.grey[850]!,
+          ThemeProvider.isBright(context) ? Colors.white : Colors.grey[850]!,
       endMenuScreen: const FavoritesList(),
       endMenuColor: Colors.blueGrey,
       contentScreen: DefaultTabController(
@@ -83,7 +83,7 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
           body: Container(
             margin: const EdgeInsets.only(top: 7),
             decoration: BoxDecoration(
-              color: ThemeManager.isBright(context)
+              color: ThemeProvider.isBright(context)
                   ? Colors.white
                   : Colors.grey[850],
               borderRadius: radius,

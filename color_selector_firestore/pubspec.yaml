@@ -18,6 +18,8 @@ dependencies:
   firebase_core:
   firebase_auth:
   cloud_firestore:
+  firebase_storage:
+  uuid:
   flutter_colorpicker: ^1.0.3
   fl_toast: ^3.1.0
   font_awesome_flutter: ^10.0.0
