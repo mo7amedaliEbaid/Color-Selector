@@ -22,14 +22,11 @@ class _ImagePickerHomeState extends State<ImagePickerHome>
     //
     // Network image is not supported because [RepaintBoundary.toImage()] was
     // not implemented on web yet.
-    return const SupportedPlatform(
-      supportWeb: false,
-      child: MinHeight(
-        minScreenHeight: 440,
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 10),
-          child: ImageSelector(),
-        ),
+    return MinHeight(
+      minScreenHeight: 440,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+        child: ImageSelector(),
       ),
     );
   }

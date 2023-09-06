@@ -1,5 +1,6 @@
 import 'package:color_picker/providers/auth_provider.dart';
 import 'package:color_picker/screens/authentication/authentication.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -34,6 +35,7 @@ bool get isDesktop {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -67,10 +69,12 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  MyApp({Key? key}) : super(key: key);
+  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
+
     return ChangeNotifierProvider<ThemeProvider>(
       create: (_) => ThemeProvider(
         utils.preferences.getString('theme') ?? ThemeMode.system.toString(),
@@ -116,7 +120,8 @@ class MyApp extends StatelessWidget {
               Locale('en', ''),
               Locale('ar', ''),
             ],
-            home: const AuthenticationPage(),
+            home:
+                _auth.currentUser?.uid == null ? AuthenticationPage() : Root(),
           ),
         );
       },

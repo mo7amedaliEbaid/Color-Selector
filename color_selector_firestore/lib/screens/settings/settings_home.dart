@@ -1,4 +1,5 @@
-import 'package:color_picker/screens/profile/profile.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/link.dart';
@@ -34,6 +35,7 @@ class SettingsHome extends StatelessWidget {
           title: lang.initialColor,
           subColor: true,
           onTap: () {
+            log("initial color pressed");
             showDialog(
               context: context,
               builder: (context) => const InitialColorDialog(),
@@ -61,7 +63,7 @@ class SettingsHome extends StatelessWidget {
           ),
         ),
         SettingsTile(
-          icon: FontAwesomeIcons.crosshairs,
+          icon: Icons.person,
           title: 'Profile',
           onTap: () => showDialog(
             context: context,

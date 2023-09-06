@@ -24,7 +24,6 @@ class FirestoreMethods {
       String imageURL = await StorageMethods().uploadImageToStorage(
         "users",
         file,
-        true,
       );
 
       String userId =_auth.currentUser!.uid ;

@@ -49,7 +49,7 @@ class SettingsTitleTile extends StatelessWidget {
       textAlign: TextAlign.left,
       style: Theme.of(context)
           .textTheme
-          .headline6
+          .titleLarge
           ?.copyWith(fontWeight: FontWeight.bold),
     );
   }

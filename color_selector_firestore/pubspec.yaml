@@ -14,30 +14,30 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  color: ^3.0.0
+  color:
   firebase_core:
   firebase_auth:
   cloud_firestore:
   firebase_storage:
   uuid:
-  flutter_colorpicker: ^1.0.3
-  fl_toast: ^3.1.0
-  font_awesome_flutter: ^10.0.0
-  image_picker: 0.8.4+11
-  path: ^1.8.0
-  provider: ^6.0.2
-  shared_preferences: ^2.0.13
-  hive: ^2.0.6
-  hive_flutter: ^1.1.0
-  url_launcher: ^6.0.20
-  url_strategy: ^0.2.0
-  window_manager: ^0.2.0
+  flutter_colorpicker:
+  fl_toast:
+  font_awesome_flutter:
+  image_picker:
+  path:
+  provider:
+  shared_preferences:
+  hive:
+  hive_flutter:
+  url_launcher:
+  url_strategy:
+  window_manager:
   cached_network_image:
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_native_splash: ^2.1.1
   flutter_launcher_icons_maker: ^0.10.1
   flutter_lints: ^1.0.4
 
@@ -56,13 +56,6 @@ flutter:
     - assets/
 
 
-flutter_native_splash:
-  # FF9800
-  color: "#FF9800"
-  image: assets/icon.png
-
-# To generate the icons, run `flutter pub run flutter_launcher_icons_maker:main` under
-# the root directory
 flutter_icons:
   android: true
   ios: true
@@ -70,6 +63,8 @@ flutter_icons:
   windows: true
   web: true
   image_path: "assets/icon.png"
+
+
 
 dependency_overrides:
   platform: ^3.1.0

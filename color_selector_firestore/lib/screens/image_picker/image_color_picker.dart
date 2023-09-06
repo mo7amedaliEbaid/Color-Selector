@@ -28,7 +28,7 @@ class ColorPickerWidgetState extends State<ColorPickerWidget> {
 
   Offset position = const Offset(10, 10);
 
-  Color? color;
+  Color color=Colors.white;
   bool showColor = false;
 
   @override
@@ -87,7 +87,7 @@ class ColorPickerWidgetState extends State<ColorPickerWidget> {
     int hex = abgrToArgb(pixel32);
 
     color = Color(hex);
-    widget.onUpdate(color!);
+    widget.onUpdate(color);
   }
 
   Future<void> loadSnapshotBytes() async {
@@ -98,7 +98,7 @@ class ColorPickerWidgetState extends State<ColorPickerWidget> {
         (await capture.toByteData(format: ui.ImageByteFormat.png))!;
     setImageBytes(imageBytes);
     capture.dispose();
-    widget.onUpdate(color!);
+    widget.onUpdate(color);
   }
 
   void setImageBytes(ByteData imageBytes) {

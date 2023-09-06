@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:color_picker/screens/authentication/authentication.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -133,63 +136,67 @@ class _RGBIntialColorChangerState extends State<RGBIntialColorChanger>
   Widget build(BuildContext context) {
     super.build(context);
     Language lang = Language.of(context);
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Field(
-          value: red.toDouble(),
-          onChanged: (value) => setState(() => red = value.toInt()),
-          color: Colors.redAccent,
-          label: lang.red,
-        ),
-        Field(
-          value: green.toDouble(),
-          onChanged: (value) => setState(() => green = value.toInt()),
-          color: Colors.green,
-          label: lang.green,
-        ),
-        Field(
-          value: blue.toDouble(),
-          onChanged: (value) => setState(() => blue = value.toInt()),
-          color: Colors.blue,
-          label: lang.blue,
-        ),
-        ColorInfo(
-          background: Colors.transparent,
-          shrinkable: false,
-          color: Color.fromARGB(
-            255,
-            red,
-            green,
-            blue,
-          ).withOpacity(opacity),
-          slider: OpacitySlider(
-            onChanged: (value) => setState(() => opacity = value),
-            value: opacity,
+    return Container(
+      height: 400,
+      width: 300,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Field(
+            value: red.toDouble(),
+            onChanged: (value) => setState(() => red = value.toInt()),
+            color: Colors.redAccent,
+            label: lang.red,
           ),
-        ),
-        Button(
-          color: Colors.green,
-          splashColor: Colors.lightGreenAccent,
-          text: Text(lang.update, style: const TextStyle(color: Colors.white)),
-          shadowEnabled: false,
-          radius: const BorderRadius.vertical(bottom: Radius.circular(20)),
-          onTap: () async {
-            showTextToast(text: lang.initialColorUpdated, context: context);
-            Navigator.pop(context);
-            await preferences.setString(
-              'initialColor',
-              Color.fromARGB(
-                255,
-                red,
-                green,
-                blue,
-              ).withOpacity(opacity).encoded,
-            );
-            AppBuilder.state.update();
-          },
-        ),
-      ],
+          Field(
+            value: green.toDouble(),
+            onChanged: (value) => setState(() => green = value.toInt()),
+            color: Colors.green,
+            label: lang.green,
+          ),
+          Field(
+            value: blue.toDouble(),
+            onChanged: (value) => setState(() => blue = value.toInt()),
+            color: Colors.blue,
+            label: lang.blue,
+          ),
+          ColorInfo(
+            background: Colors.transparent,
+            shrinkable: false,
+            color: Color.fromARGB(
+              255,
+              red,
+              green,
+              blue,
+            ).withOpacity(opacity),
+            slider: OpacitySlider(
+              onChanged: (value) => setState(() => opacity = value),
+              value: opacity,
+            ),
+          ),
+          Button(
+            color: Colors.green,
+            splashColor: Colors.lightGreenAccent,
+            text: Text(lang.update, style: const TextStyle(color: Colors.white)),
+            shadowEnabled: false,
+            radius: const BorderRadius.vertical(bottom: Radius.circular(20)),
+            onTap: () async {
+              showTextToast(text: lang.initialColorUpdated, context: context);
+              Navigator.pop(context);
+              await preferences.setString(
+                'initialColor',
+                Color.fromARGB(
+                  255,
+                  red,
+                  green,
+                  blue,
+                ).withOpacity(opacity).encoded,
+              );
+              AppBuilder.state.update();
+            },
+          ),
+        ],
+      ),
     );
   }
 
@@ -243,7 +250,8 @@ class ProfileDialog extends StatefulWidget {
 
 class _ProfileDialogState extends State<ProfileDialog> {
   addData() async {
-    UserProvider userProviders = Provider.of(context, listen: false);
+    UserProvider userProviders =
+        Provider.of<UserProvider>(context, listen: false);
 
     await userProviders.refreshUser();
   }
@@ -253,6 +261,7 @@ class _ProfileDialogState extends State<ProfileDialog> {
     super.initState();
     addData();
   }
+
   @override
   Widget build(BuildContext context) {
     UserDetails userDetails = Provider.of<UserProvider>(context).getUser;
@@ -260,23 +269,86 @@ class _ProfileDialogState extends State<ProfileDialog> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       title: Center(
         child: Text(
-          userDetails.userName,
+          userDetails.userName??"",
           style: Theme.of(context).textTheme.titleLarge,
         ),
       ),
       children: List<Widget>.generate(1, (index) {
-        return Column(
-          children: [
-            Container(
-              child: CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(userDetails.imageURL!),
+        return Container(
+          width: 300,
+          height: 270,
+          padding: EdgeInsets.all(15),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Container(
+                height: 70,
+                width: 70,
+                decoration: BoxDecoration(
+                  image: DecorationImage(image: AssetImage("assets/logo.png"))
+                ),
+                child: CircleAvatar(
+                 backgroundColor: Colors.transparent,
+                  onBackgroundImageError: (exception, stackTrace) {
+                    log(exception.toString());
+                  },
+
+                  radius: 50,
+                  backgroundImage: NetworkImage(userDetails.imageURL??"https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg",
+
+                  ),
+                  foregroundImage: NetworkImage(userDetails.imageURL??"https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg"),
+                ),
               ),
-            ),
-            Row(
-              children: [Text("Joined at"), Text(userDetails.dateCreated)],
-            ),
-          ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Joined at",
+                    style: TextStyle(color: Colors.green),
+                  ),
+                  Text(userDetails.dateCreated??DateTime.now().toString())
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "Email",
+                    style: TextStyle(color: Colors.green),
+                  ),
+                  Text(userDetails.email??"mo7amedaliebaid@gmail.com")
+                ],
+              ),
+              SizedBox(height: 20,),
+              InkWell(
+                onTap: () {
+                  Provider.of<UserProvider>(context,listen: false).signOut();
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => AuthenticationPage()),
+                      (route) => false);
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(vertical: 5,horizontal: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.green.shade400,
+                     borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Icon(Icons.arrow_back_ios),
+                      Text(
+                        "Sign Out",
+                        style: TextStyle(color: Colors.red),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
       }),
     );

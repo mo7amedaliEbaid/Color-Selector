@@ -97,6 +97,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
   @override
   Widget build(BuildContext context) {
+    _register() {}
     return Scaffold(
         body: Consumer<UserProvider>(builder: (context, authdata, _) {
       return Center(
@@ -124,8 +125,8 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                 Row(
                   children: [
                     Text(isLoginScreen ? "Login" : "Create your account",
-                        style:
-                            TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                        style: TextStyle(
+                            fontSize: 30, fontWeight: FontWeight.bold)),
                   ],
                 ),
                 const SizedBox(
@@ -267,24 +268,27 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                   onTap: () async {
                     if (!isLoginScreen) {
                       var result = await authdata.userSignup(
-                          _usernamecontroller.text,
                           _emailcontroller.text,
                           _passwordcontroller.text);
-                      result == true
-                          ? _firestoreMethods.createUser(
-                              file: _imageURL ?? Uint8List(0),
-                              uid: FirebaseAuth.instance.currentUser!.uid,
-                              dateCreated: DateTime.now().toString(),
-                              email: _emailcontroller.text.toString().trim(),
-                              username:
-                                  _usernamecontroller.text.toString().trim())
-                          : ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("Error has occured")));
-                    } else  {
+                      if (result == true) {
+                        _firestoreMethods.createUser(
+                            file: _imageURL ?? Uint8List(0),
+                            uid: FirebaseAuth.instance.currentUser!.uid,
+                            dateCreated: DateTime.now().toString(),
+                            email: _emailcontroller.text.toString().trim(),
+                            username:
+                                _usernamecontroller.text.toString().trim());
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => Root()));
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Error has occured")));
+                      }
+                    } else {
                       log("is logging in");
                       var result = await authdata.userLogin(
-                        _usernamecontroller.text,
                         _emailcontroller.text,
+                        _passwordcontroller.text,
                       );
                       result == true
                           ? Navigator.of(context).push(
@@ -292,8 +296,6 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                           : ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(content: Text("Error has occured")));
                     }
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) => Root()));
                   },
                   child: Container(
                     decoration: BoxDecoration(
@@ -321,6 +323,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                     text: isLoginScreen
                         ? "Want to create your own account?   "
                         : "Already have an account?   ",
+                    style: Theme.of(context).textTheme.bodyMedium
                   ),
                   TextSpan(
                       text: isLoginScreen ? "Register! " : "Log In!",

@@ -29,16 +29,24 @@ showColorInfoDialog(
   final background = Theme.of(context).dialogBackgroundColor;
   showDialog(
     context: context,
-    builder: (context) => AlertDialog(
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-      ),
-      title: Center(child: Text(title)),
-      contentPadding: const EdgeInsets.only(top: 20),
-      content: ColorInfo(
-        color: color,
-        background: background,
-        shrinkable: false,
+    builder: (context) => Container(
+      height: 200,
+      width: 250,
+      child: AlertDialog(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        title: Center(child: Text(title)),
+        contentPadding: const EdgeInsets.only(top: 20),
+        content: Container(
+          height: 150,
+          width: 200,
+          child: ColorInfo(
+            color: color,
+            background: background,
+            shrinkable: false,
+          ),
+        ),
       ),
     ),
   );
