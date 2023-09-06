@@ -28,16 +28,10 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
   // Use this key to keep the state of the tabs and scrolling
   final scaffoldKey = GlobalKey();
 
-  addData() async {
-    UserProvider userProviders = Provider.of(context, listen: false);
-
-    await userProviders.refreshUser();
-  }
 
   @override
   void initState() {
     super.initState();
-    addData();
     menuController = zoomed.MenuController(
       vsync: this,
     )..stream.listen((value) => setState(() {}));

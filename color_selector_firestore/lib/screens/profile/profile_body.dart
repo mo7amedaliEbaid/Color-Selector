@@ -1,3 +1,4 @@
+/*
 import 'package:color_picker/models/users.dart';
 import 'package:color_picker/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class _BodyState extends State<Body> {
         padding: EdgeInsets.only(left: 16, right: 16, top: 8),
         child: Column(
           children: [
+        
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -117,4 +119,4 @@ class _BodyState extends State<Body> {
       ),
     );
   }
-}
+}*/

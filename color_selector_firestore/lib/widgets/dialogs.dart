@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fl_toast/fl_toast.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 
-import 'lang/lang.dart';
-import 'widgets/button.dart';
-import 'widgets/opacity_slider.dart';
-import 'screens/color_info/color_info.dart';
+import '../lang/lang.dart';
+import '../models/users.dart';
+import '../providers/auth_provider.dart';
+import 'button.dart';
+import 'opacity_slider.dart';
+import '../screens/color_info/color_info.dart';
 
-import 'utils.dart';
-import 'main.dart';
-import 'providers/theme_provider.dart';
+import '../utils.dart';
+import '../main.dart';
+import '../providers/theme_provider.dart';
 
 class ThemeDialog extends StatelessWidget {
   const ThemeDialog({Key? key}) : super(key: key);
@@ -79,7 +82,7 @@ class _LanguageDialogState extends State<LanguageDialog> {
         return CheckboxListTile(
           value: Language.of(context).code == l.code,
           onChanged: (mode) async {
-        //    await Language.set(context, l);
+            //    await Language.set(context, l);
           },
           title: Text(l.langName),
         );
@@ -228,5 +231,54 @@ class Field extends StatelessWidget {
       ),
       const SizedBox(width: 10),
     ]);
+  }
+}
+
+class ProfileDialog extends StatefulWidget {
+  const ProfileDialog({Key? key}) : super(key: key);
+
+  @override
+  _ProfileDialogState createState() => _ProfileDialogState();
+}
+
+class _ProfileDialogState extends State<ProfileDialog> {
+  addData() async {
+    UserProvider userProviders = Provider.of(context, listen: false);
+
+    await userProviders.refreshUser();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    addData();
+  }
+  @override
+  Widget build(BuildContext context) {
+    UserDetails userDetails = Provider.of<UserProvider>(context).getUser;
+    return SimpleDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+      title: Center(
+        child: Text(
+          userDetails.userName,
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+      ),
+      children: List<Widget>.generate(1, (index) {
+        return Column(
+          children: [
+            Container(
+              child: CircleAvatar(
+                radius: 50,
+                backgroundImage: NetworkImage(userDetails.imageURL!),
+              ),
+            ),
+            Row(
+              children: [Text("Joined at"), Text(userDetails.dateCreated)],
+            ),
+          ],
+        );
+      }),
+    );
   }
 }

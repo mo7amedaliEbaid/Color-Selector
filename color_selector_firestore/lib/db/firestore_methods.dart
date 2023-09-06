@@ -45,7 +45,7 @@ class FirestoreMethods {
 
 
   Future<UserDetails> getUserDetails() async {
-    log("kkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
+    log("refreshing user");
     User currentUser = _auth.currentUser!;
     DocumentSnapshot snapshot = await _firebaseFirestore
         .collection("users")

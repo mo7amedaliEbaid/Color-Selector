@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/link.dart';
 
 import '../../lang/lang.dart';
-import '../../dialogs.dart';
+import '../../widgets/dialogs.dart';
 import '../../providers/theme_provider.dart';
 
 import 'settings_tile.dart';
@@ -63,9 +63,10 @@ class SettingsHome extends StatelessWidget {
         SettingsTile(
           icon: FontAwesomeIcons.crosshairs,
           title: 'Profile',
-          onTap: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProfileScreen()));
-          }
+          onTap: () => showDialog(
+            context: context,
+            builder: (_) => const ProfileDialog(),
+          ),
         ),
         const Divider(),
         SettingsTitleTile(title: lang.about),

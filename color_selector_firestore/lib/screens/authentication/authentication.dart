@@ -1,6 +1,5 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print, avoid_web_libraries_in_flutter
 import 'dart:developer';
-import 'dart:html';
 import 'dart:typed_data';
 
 import 'package:color_picker/db/firestore_methods.dart';
@@ -104,235 +103,237 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
         child: Container(
           constraints: const BoxConstraints(maxWidth: 400),
           padding: const EdgeInsets.all(24),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                children: [
-                  Container(
-                    padding: const EdgeInsets.only(right: 12),
-                    height: 50,
-                    width: 50,
-                    child: Image.asset("assets/logo.png"),
-                  ),
-                  Expanded(child: Container()),
-                ],
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              Row(
-                children: [
-                  Text(isLoginScreen ? "Login" : "Create your account",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
-                ],
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Text(
-                    isLoginScreen
-                        ? "Welcome back to the color selector."
-                        : "Create an account to access.",
-                    style: TextStyle(color: Colors.lightBlue),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  Text(
-                    isLoginScreen
-                        ? "Login in with email and password "
-                        : "Register with email and password",
-                    style: TextStyle(color: Colors.lightBlue),
-                  ),
-                ],
-              ),
-              !isLoginScreen
-                  ? Container(
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.only(right: 12),
                       height: 50,
                       width: 50,
-                      decoration: BoxDecoration(shape: BoxShape.circle),
-                      child: InkWell(
-                          onTap: () {
-                            selectedImage();
-                          },
-                          child: _imageURL != null
-                              ? CircleAvatar(
-                                  key: UniqueKey(),
-                                  backgroundImage: MemoryImage(
-                                    _imageURL!,
-                                  ),
-                                  backgroundColor:
-                                      Colors.white.withOpacity(0.13),
-                                  radius: 50,
-                                )
-                              : CircleAvatar(
-                                  key: UniqueKey(),
-                                  backgroundColor: Colors.white,
-                                  radius: 50,
-                                )),
-                    )
-                  : SizedBox.shrink(),
-              const SizedBox(
-                height: 15,
-              ),
-              !isLoginScreen
-                  ? TextField(
-                      focusNode: usernameFocus,
-                      controller: _usernamecontroller,
-                      onChanged: (value) {
-                        setState(() {
-                          isEditingUsername = true;
-                        });
-                      },
-                      decoration: InputDecoration(
-                          labelText: "Username",
-                          hintText: "jdoe123",
-                          errorText: isEditingUsername
-                              ? validateUsername(_usernamecontroller.text)
-                              : null,
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20))),
-                    )
-                  : const SizedBox(
-                      height: 1,
+                      child: Image.asset("assets/logo.png"),
                     ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextField(
-                focusNode: emailFocus,
-                controller: _emailcontroller,
-                onChanged: (value) {
-                  setState(() {
-                    isEditingEmail = true;
-                  });
-                },
-                decoration: InputDecoration(
-                    labelText: "Email",
-                    hintText: "abc@domain.com",
-                    errorText: isEditingEmail
-                        ? validateEmail(_emailcontroller.text)
-                        : null,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20))),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              TextField(
-                focusNode: passwordFocus,
-                controller: _passwordcontroller,
-                onChanged: (value) {
-                  setState(() {
-                    isEditingPassword = true;
-                  });
-                },
-                obscureText: !passwordIsVisible,
-                decoration: InputDecoration(
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
-                      child: GestureDetector(
-                        onTap: () {
+                    Expanded(child: Container()),
+                  ],
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                Row(
+                  children: [
+                    Text(isLoginScreen ? "Login" : "Create your account",
+                        style:
+                            TextStyle(fontSize: 30, fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      isLoginScreen
+                          ? "Welcome back to the color selector."
+                          : "Create an account to access.",
+                      style: TextStyle(color: Colors.lightBlue),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Text(
+                      isLoginScreen
+                          ? "Login in with email and password "
+                          : "Register with email and password",
+                      style: TextStyle(color: Colors.lightBlue),
+                    ),
+                  ],
+                ),
+                !isLoginScreen
+                    ? Container(
+                        height: 50,
+                        width: 50,
+                        decoration: BoxDecoration(shape: BoxShape.circle),
+                        child: InkWell(
+                            onTap: () {
+                              selectedImage();
+                            },
+                            child: _imageURL != null
+                                ? CircleAvatar(
+                                    key: UniqueKey(),
+                                    backgroundImage: MemoryImage(
+                                      _imageURL!,
+                                    ),
+                                    backgroundColor:
+                                        Colors.white.withOpacity(0.13),
+                                    radius: 50,
+                                  )
+                                : CircleAvatar(
+                                    key: UniqueKey(),
+                                    backgroundColor: Colors.white,
+                                    radius: 50,
+                                  )),
+                      )
+                    : SizedBox.shrink(),
+                const SizedBox(
+                  height: 15,
+                ),
+                !isLoginScreen
+                    ? TextField(
+                        focusNode: usernameFocus,
+                        controller: _usernamecontroller,
+                        onChanged: (value) {
                           setState(() {
-                            passwordIsVisible = !passwordIsVisible;
+                            isEditingUsername = true;
                           });
                         },
-                        child: Icon(
-                            passwordIsVisible
-                                ? Icons.visibility_off
-                                : Icons.visibility,
-                            color: Colors.lightBlue),
+                        decoration: InputDecoration(
+                            labelText: "Username",
+                            hintText: "jdoe123",
+                            errorText: isEditingUsername
+                                ? validateUsername(_usernamecontroller.text)
+                                : null,
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20))),
+                      )
+                    : const SizedBox(
+                        height: 1,
                       ),
-                    ),
-                    labelText: "Password",
-                    hintText: "123456",
-                    errorText: isEditingPassword
-                        ? validatePassword(_passwordcontroller.text)
-                        : null,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20))),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              InkWell(
-                onTap: () async {
-                  if (!isLoginScreen) {
-                    var result = await authdata.userSignup(
+                const SizedBox(
+                  height: 15,
+                ),
+                TextField(
+                  focusNode: emailFocus,
+                  controller: _emailcontroller,
+                  onChanged: (value) {
+                    setState(() {
+                      isEditingEmail = true;
+                    });
+                  },
+                  decoration: InputDecoration(
+                      labelText: "Email",
+                      hintText: "abc@domain.com",
+                      errorText: isEditingEmail
+                          ? validateEmail(_emailcontroller.text)
+                          : null,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20))),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                TextField(
+                  focusNode: passwordFocus,
+                  controller: _passwordcontroller,
+                  onChanged: (value) {
+                    setState(() {
+                      isEditingPassword = true;
+                    });
+                  },
+                  obscureText: !passwordIsVisible,
+                  decoration: InputDecoration(
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
+                        child: GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              passwordIsVisible = !passwordIsVisible;
+                            });
+                          },
+                          child: Icon(
+                              passwordIsVisible
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: Colors.lightBlue),
+                        ),
+                      ),
+                      labelText: "Password",
+                      hintText: "123456",
+                      errorText: isEditingPassword
+                          ? validatePassword(_passwordcontroller.text)
+                          : null,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20))),
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                const SizedBox(
+                  height: 15,
+                ),
+                InkWell(
+                  onTap: () async {
+                    if (!isLoginScreen) {
+                      var result = await authdata.userSignup(
+                          _usernamecontroller.text,
+                          _emailcontroller.text,
+                          _passwordcontroller.text);
+                      result == true
+                          ? _firestoreMethods.createUser(
+                              file: _imageURL ?? Uint8List(0),
+                              uid: FirebaseAuth.instance.currentUser!.uid,
+                              dateCreated: DateTime.now().toString(),
+                              email: _emailcontroller.text.toString().trim(),
+                              username:
+                                  _usernamecontroller.text.toString().trim())
+                          : ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Error has occured")));
+                    } else  {
+                      log("is logging in");
+                      var result = await authdata.userLogin(
                         _usernamecontroller.text,
                         _emailcontroller.text,
-                        _passwordcontroller.text);
-                    result == true
-                        ? _firestoreMethods.createUser(
-                            file: _imageURL ?? Uint8List(0),
-                            uid: FirebaseAuth.instance.currentUser!.uid,
-                            dateCreated: DateTime.now().toString(),
-                            email: _emailcontroller.text.toString().trim(),
-                            username:
-                                _usernamecontroller.text.toString().trim())
-                        : ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Error has occured")));
-                  } else  {
-                    log("is logging in");
-                    var result = await authdata.userLogin(
-                      _usernamecontroller.text,
-                      _emailcontroller.text,
-                    );
-                    result == true
-                        ? Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => Root()))
-                        : ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text("Error has occured")));
-                  }
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (context) => Root()));
-                },
-                child: Container(
-                  decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius: BorderRadius.circular(20)),
-                  alignment: Alignment.center,
-                  width: double.maxFinite,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  child: isRegistering || isLoggingIn
-                      ? const CircularProgressIndicator(
-                          color: Colors.white,
-                        )
-                      : Text(
-                          isLoginScreen ? "Login" : "Register",
-                          style: TextStyle(color: Colors.white),
-                        ),
+                      );
+                      result == true
+                          ? Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => Root()))
+                          : ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text("Error has occured")));
+                    }
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (context) => Root()));
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.blue,
+                        borderRadius: BorderRadius.circular(20)),
+                    alignment: Alignment.center,
+                    width: double.maxFinite,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: isRegistering || isLoggingIn
+                        ? const CircularProgressIndicator(
+                            color: Colors.white,
+                          )
+                        : Text(
+                            isLoginScreen ? "Login" : "Register",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              RichText(
-                  text: TextSpan(children: [
-                TextSpan(
-                  text: isLoginScreen
-                      ? "Want to create your own account?   "
-                      : "Already have an account?   ",
+                const SizedBox(
+                  height: 15,
                 ),
-                TextSpan(
-                    text: isLoginScreen ? "Register! " : "Log In!",
-                    style: TextStyle(color: Colors.blue),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        setState(() {
-                          isLoginScreen = !isLoginScreen;
-                        });
-                      })
-              ])),
-            ],
+                RichText(
+                    text: TextSpan(children: [
+                  TextSpan(
+                    text: isLoginScreen
+                        ? "Want to create your own account?   "
+                        : "Already have an account?   ",
+                  ),
+                  TextSpan(
+                      text: isLoginScreen ? "Register! " : "Log In!",
+                      style: TextStyle(color: Colors.blue),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          setState(() {
+                            isLoginScreen = !isLoginScreen;
+                          });
+                        })
+                ])),
+              ],
+            ),
           ),
         ),
       );
