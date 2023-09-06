@@ -1,6 +1,9 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:fl_toast/fl_toast.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 import 'lang/lang.dart';
 import 'widgets/button.dart';
@@ -76,7 +79,7 @@ class _LanguageDialogState extends State<LanguageDialog> {
         return CheckboxListTile(
           value: Language.of(context).code == l.code,
           onChanged: (mode) async {
-            await Language.set(context, l);
+        //    await Language.set(context, l);
           },
           title: Text(l.langName),
         );

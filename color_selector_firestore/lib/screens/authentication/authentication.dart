@@ -1,9 +1,14 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print, avoid_web_libraries_in_flutter
+import 'dart:developer';
 import 'dart:html';
+import 'dart:typed_data';
 
+import 'package:color_picker/db/firestore_methods.dart';
 import 'package:color_picker/screens/root.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/auth_provider.dart';
@@ -19,6 +24,8 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
   TextEditingController _emailcontroller = TextEditingController();
   TextEditingController _usernamecontroller = TextEditingController();
   TextEditingController _passwordcontroller = TextEditingController();
+
+  FirestoreMethods _firestoreMethods = FirestoreMethods();
 
   final FocusNode emailFocus = FocusNode();
   final FocusNode passwordFocus = FocusNode();
@@ -69,10 +76,30 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
     return null;
   }
 
+  pickImage(ImageSource source) async {
+    final ImagePicker _imagePicker = ImagePicker();
+    XFile? _file = await _imagePicker.pickImage(source: source);
+    if (_file != null) {
+      return await _file.readAsBytes();
+    }
+    print('No Image Selected');
+  }
+
+  Uint8List? _imageURL;
+
+  selectedImage() async {
+    Uint8List imageURL = await pickImage(
+      ImageSource.gallery,
+    );
+    setState(() {
+      _imageURL = imageURL;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Consumer<AuthProvider>(builder: (context, authdata, _) {
+        body: Consumer<UserProvider>(builder: (context, authdata, _) {
       return Center(
         child: Container(
           constraints: const BoxConstraints(maxWidth: 400),
@@ -124,6 +151,32 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                   ),
                 ],
               ),
+              !isLoginScreen
+                  ? Container(
+                      height: 50,
+                      width: 50,
+                      decoration: BoxDecoration(shape: BoxShape.circle),
+                      child: InkWell(
+                          onTap: () {
+                            selectedImage();
+                          },
+                          child: _imageURL != null
+                              ? CircleAvatar(
+                                  key: UniqueKey(),
+                                  backgroundImage: MemoryImage(
+                                    _imageURL!,
+                                  ),
+                                  backgroundColor:
+                                      Colors.white.withOpacity(0.13),
+                                  radius: 50,
+                                )
+                              : CircleAvatar(
+                                  key: UniqueKey(),
+                                  backgroundColor: Colors.white,
+                                  radius: 50,
+                                )),
+                    )
+                  : SizedBox.shrink(),
               const SizedBox(
                 height: 15,
               ),
@@ -212,36 +265,40 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
               ),
               InkWell(
                 onTap: () async {
-                  if(isRegistering){
+                  if (!isLoginScreen) {
                     var result = await authdata.userSignup(
                         _usernamecontroller.text,
                         _emailcontroller.text,
                         _passwordcontroller.text);
                     result == true
-                        ?
-
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) => Root()))
+                        ? _firestoreMethods.createUser(
+                            file: _imageURL ?? Uint8List(0),
+                            uid: FirebaseAuth.instance.currentUser!.uid,
+                            dateCreated: DateTime.now().toString(),
+                            email: _emailcontroller.text.toString().trim(),
+                            username:
+                                _usernamecontroller.text.toString().trim())
                         : ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Error has occured")));
-                  }else{
+                            SnackBar(content: Text("Error has occured")));
+                  } else  {
+                    log("is logging in");
                     var result = await authdata.userLogin(
-                        _usernamecontroller.text,
-                        _emailcontroller.text,
-                        _passwordcontroller.text);
+                      _usernamecontroller.text,
+                      _emailcontroller.text,
+                    );
                     result == true
-                        ? Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) => Root()))
+                        ? Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => Root()))
                         : ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Error has occured")));
+                            SnackBar(content: Text("Error has occured")));
                   }
-
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (context) => Root()));
                 },
                 child: Container(
-                  decoration:
-                      BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(20)),
+                  decoration: BoxDecoration(
+                      color: Colors.blue,
+                      borderRadius: BorderRadius.circular(20)),
                   alignment: Alignment.center,
                   width: double.maxFinite,
                   padding: const EdgeInsets.symmetric(vertical: 16),
@@ -275,8 +332,6 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                         });
                       })
               ])),
-
-
             ],
           ),
         ),

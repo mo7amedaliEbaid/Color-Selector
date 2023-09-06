@@ -28,85 +28,85 @@ class Portuguese extends Language {
   String get hexCodeLengthMustBeSix =>
       'هكس كود يجب ان يكون ستة عناصر';
   String get hexCodeLimitedChars =>
-      'O código hexadecimal só pode ter caracteres de 0 a 9 e de A a F';
+      '';
   String get hexCodeOpacity =>
-      'Dica: a opacidade pode ser alterada pelo controle deslizante abaixo';
+      '';
 
-  String get hue => 'Matiz (Hue)';
-  String get saturation => 'Saturação';
-  String get lightness => 'Luminosidade';
-  String get value => 'Valor';
+  String get hue => '';
+  String get saturation => '';
+  String get lightness => '';
+  String get value => '';
 
-  String get opacity => 'Opacidade';
+  String get opacity => '';
 
-  String get localImage => 'Imagem local';
-  String get networkImage => 'Imagem da internet';
-  String get selectPhoto => 'Selecionar imagem';
+  String get localImage => '';
+  String get networkImage => '';
+  String get selectPhoto => '';
 
-  String get favoriteColorsTitle => 'Cores favoritas';
+  String get favoriteColorsTitle => '';
   String get haventFavoritedAnyBefore =>
-      'Você ainda não favoritou nenhuma cor!\nAperte ';
+      '';
   String get haventFavoritedAnyAfter =>
-      ' em uma previsualização de cor para favoritar';
-  String get favorite => 'Favoritar';
-  String get unfavorite => 'Desfavoritar';
-  String get favorited => 'Favoritado';
-  String get unfavorited => 'Desfavoritado';
+      '';
+  String get favorite => '';
+  String get unfavorite => '';
+  String get favorited => '';
+  String get unfavorited => '';
 
-  String get copyToClipboard => 'Copiar para a área de transferência';
+  String get copyToClipboard => '';
   Widget copiedToClipboard(String text) {
     return RichText(
       text: TextSpan(text: '', children: [
         TextSpan(text: text, style: const TextStyle(color: Colors.blue)),
-        const TextSpan(text: ' foi copiado para a área de transferência'),
+        const TextSpan(text: ''),
       ]),
     );
   }
 
   String supportedPlatforms(List<TargetPlatform> platforms) {
-    String text = 'Essa funcionalidade não está disponível no seu dispositivo';
+    String text = '';
     return text;
   }
 
-  String get seeColorInfo => 'Ver informações da cor';
-  String get colorInfo => 'Informações da cor';
+  String get seeColorInfo => '';
+  String get colorInfo => '';
   String colorWithOpacity(String name, int opacity) =>
-      '$name com $opacity% de opacidade';
+      '$name  $opacity%';
 
-  String get settings => 'Configurações';
-  String get user => 'Usuário';
-  String get app => 'Aplicativo';
-  String get initialColor => 'Cor inicial';
-  String get language => 'Idioma';
+  String get settings => '';
+  String get user => '';
+  String get app => '';
+  String get initialColor => '';
+  String get language => '';
 
-  String get open => 'Abrir';
-  String get close => 'Fechar';
+  String get open => '';
+  String get close => '';
 
-  String get about => 'Sobre';
-  String get author => 'Autor';
-  String get openSource => 'Código-aberto';
-  String get madeWithFlutter => 'Feito com Flutter 💙';
+  String get about => '';
+  String get author => '';
+  String get openSource => '';
+  String get madeWithFlutter => '💙';
 
-  String get theme => 'Tema do aplicativo';
-  String get dark => 'Escuro';
-  String get light => 'Claro';
-  String get system => 'Sistema (padrão)';
+  String get theme => '';
+  String get dark => '';
+  String get light => '';
+  String get system => '';
 
   String minHeight(int height) =>
-      'Esta funcionalidade só está disponível em dispositivos com uma tela maior que $height pixels';
+      '$height ';
 
-  String get update => 'Atualizar';
-  String get initialColorUpdated => 'Cor inicial atualizada';
+  String get update => '';
+  String get initialColorUpdated => '';
 
-  String get url => 'Url';
-  String get urlMustNotBeEmpty => 'A url não pode estar vazia';
-  String get search => 'Procurar';
+  String get url => '';
+  String get urlMustNotBeEmpty => '';
+  String get search => '';
 
-  String get redColor => 'Vermelho';
-  String get pink => 'Rosa';
-  String get purple => 'Roxo';
-  String get deepPurple => 'Roxo escuro';
-  String get indigo => 'Azul escuro';
+  String get redColor => '';
+  String get pink => '';
+  String get purple => '';
+  String get deepPurple => '';
+  String get indigo => '';
   String get blueColor => 'ازرق';
   String get lightBlue => 'ازرق فاتح';
   String get cyan => 'سماوى';

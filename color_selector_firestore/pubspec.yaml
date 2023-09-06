@@ -32,6 +32,7 @@ dependencies:
   url_launcher: ^6.0.20
   url_strategy: ^0.2.0
   window_manager: ^0.2.0
+  cached_network_image:
 
 dev_dependencies:
   flutter_test:

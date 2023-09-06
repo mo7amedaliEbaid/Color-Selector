@@ -1,3 +1,4 @@
+import 'package:color_picker/screens/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/link.dart';
@@ -61,10 +62,10 @@ class SettingsHome extends StatelessWidget {
         ),
         SettingsTile(
           icon: FontAwesomeIcons.crosshairs,
-          title: 'Indicator',
-          onTap: () {
-            // TODO: open indicator settings
-          },
+          title: 'Profile',
+          onTap: (){
+            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>ProfileScreen()));
+          }
         ),
         const Divider(),
         SettingsTitleTile(title: lang.about),
