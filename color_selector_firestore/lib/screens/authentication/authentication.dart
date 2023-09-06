@@ -97,7 +97,6 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
 
   @override
   Widget build(BuildContext context) {
-    _register() {}
     return Scaffold(
         body: Consumer<UserProvider>(builder: (context, authdata, _) {
       return Center(

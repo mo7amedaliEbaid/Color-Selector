@@ -184,7 +184,9 @@ class SliderPicker extends StatefulWidget {
 
 class _SliderPickerState extends State<SliderPicker> {
   double get value => widget.value;
+
   double get min => widget.min;
+
   double get max => widget.max;
 
   double getRatio() => ((value - min) / (max - min)).clamp(0.0, 1.0);
@@ -211,6 +213,7 @@ class _SliderPickerState extends State<SliderPicker> {
   }
 
   double trackWidth = 14;
+
   double getWidth(double value, double maxWidth) =>
       (maxWidth - trackWidth - trackWidth) * value + trackWidth;
 

@@ -48,15 +48,3 @@ class ImageSelector extends StatelessWidget {
   }
 }
 
-DecorationImage buildDecorationImage(BuildContext context) {
-  return DecorationImage(
-    image: const AssetImage('assets/checkerboard.png'),
-    fit: BoxFit.fill,
-    colorFilter: ThemeProvider.isBright(context)
-        ? null
-        : ColorFilter.mode(
-            Colors.grey.shade700,
-            BlendMode.modulate,
-          ),
-  );
-}

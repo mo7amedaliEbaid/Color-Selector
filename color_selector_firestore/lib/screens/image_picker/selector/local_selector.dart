@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -23,13 +24,26 @@ class _LocalImageSelectorState extends State<LocalImageSelector>
     with AutomaticKeepAliveClientMixin {
   Color color = Colors.black;
 
-  final picker = ImagePicker();
-  File? _image;
-
-  void getImage() async {
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) setState(() => _image = File(pickedFile.path));
+  pickImage(ImageSource source) async {
+    final ImagePicker _imagePicker = ImagePicker();
+    XFile? _file = await _imagePicker.pickImage(source: source);
+    if (_file != null) {
+      return await _file.readAsBytes();
+    }
+    print('No Image Selected');
   }
+
+  Uint8List? _imageURL;
+
+  selectedImage() async {
+    Uint8List imageURL = await pickImage(
+      ImageSource.gallery,
+    );
+    setState(() {
+      _imageURL = imageURL;
+    });
+  }
+
 
   final pickerKey = GlobalKey<ColorPickerWidgetState>();
 
@@ -45,15 +59,15 @@ class _LocalImageSelectorState extends State<LocalImageSelector>
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Stack(children: [
               const RepaintBoundary(child: ChessBoard()),
-              if (_image != null)
+              if (_imageURL != null)
                 LayoutBuilder(builder: (context, c) {
                   return ConstrainedBox(
                     constraints: c,
                     child: ColorPickerWidget(
                       key: pickerKey,
                       onUpdate: (color) => setState(() => this.color = color),
-                      image: Image.file(
-                        _image!,
+                      image: Image.memory(
+                        _imageURL!,
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -72,7 +86,7 @@ class _LocalImageSelectorState extends State<LocalImageSelector>
           leading: buildCompactIconButton(
             icon: const FaIcon(FontAwesomeIcons.image),
             tooltip: lang.selectPhoto,
-            onPressed: getImage,
+            onPressed: selectedImage,
           ),
         ),
       ],

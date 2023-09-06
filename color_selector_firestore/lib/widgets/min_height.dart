@@ -23,9 +23,16 @@ class MinHeight extends StatelessWidget {
         return Container(
           alignment: Alignment.center,
           padding: const EdgeInsets.all(8),
-          child: Text(
-            lang.minHeight(minScreenHeight.toInt()),
-            textAlign: TextAlign.center,
+          child: Column(
+            children: [
+               Expanded(
+                 child: Text(
+                  "Color Selector",
+                  textAlign: TextAlign.center,
+              ),
+               ),
+               Expanded(child: Image.asset("assets/logo.png"))
+            ],
           ),
         );
       }

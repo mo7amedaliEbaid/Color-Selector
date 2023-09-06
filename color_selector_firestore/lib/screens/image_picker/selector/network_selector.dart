@@ -49,6 +49,26 @@ class _NetworkImageSelectorState extends State<NetworkImageSelector>
                       url!,
                       fit: BoxFit.contain,
                       alignment: Alignment.center,
+                      errorBuilder: (BuildContext context, Object exception,
+                          StackTrace? stackTrace) {
+                        return Container(
+                            child: Column(
+                          children: [
+                            Image.asset("assets/logo.png"),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              "This Image is Invalid Select another one and try again",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w900,
+                                  backgroundColor: Colors.white,
+                                  color: Colors.green),
+                            )
+                          ],
+                        ));
+                      },
                     ),
                   )
               ],

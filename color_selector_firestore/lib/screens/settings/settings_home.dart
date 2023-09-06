@@ -76,37 +76,39 @@ class SettingsHome extends StatelessWidget {
           uri: Uri.parse('https://github.com/mo7amedaliEbaid'),
           builder: (context, followLink) => SettingsTile(
             icon: FontAwesomeIcons.at,
-            title: lang.author,
-            subtitle: 'mohamed',
+            title: "Developer",
+            subtitle: 'Mohamed Ali',
             onTap: followLink,
           ),
         ),
-        const SizedBox(height: 10.0),
-        Wrap(spacing: 6, children: [
-          Link(
-            uri: Uri.parse('https://github.com/mo7amedaliEbaid/Color-Selector-Firestore'),
-            builder: (context, followLink) => ActionChip(
-              avatar: const Icon(Icons.source, size: 18.0),
-              label: Text(lang.openSource),
-              backgroundColor: Colors.teal,
-              onPressed: () => followLink?.call(),
-            ),
+        const Divider(),
+        Link(
+          uri: Uri.parse('https://github.com/mo7amedaliEbaid/Color-Selecto'),
+          builder: (context, followLink) => SettingsTile(
+            icon: FontAwesomeIcons.at,
+            title: "Source Code",
+            subtitle: 'Github Repo',
+            onTap: followLink,
           ),
-          Link(
-            uri: Uri.parse('https://flutter.dev'),
-            builder: (context, followLink) => ActionChip(
-              avatar: const FlutterLogo(size: 18.0),
-              label: Text(lang.madeWithFlutter),
-              backgroundColor: Colors.blue,
-              onPressed: () => followLink?.call(),
-            ),
-          ),
-        ]),
+        ),
+        const Divider(),
+          SizedBox(height: 10,),
+          Align(
+           alignment: Alignment.center,
+           child: Container(
+             height: 250,
+             child: Column(
+               children: [
+                 Image.asset("assets/logo.png",fit: BoxFit.contain,height: 180,),
+                 SizedBox(height: 10,),
+                 Text("Color Selector",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w900),)
+               ],
+             ),
+           ),
+         )
       ],
     );
   }
 
-  String firstUppecase(String text) {
-    return text.substring(0, 1).toUpperCase() + text.substring(1).toLowerCase();
-  }
+
 }

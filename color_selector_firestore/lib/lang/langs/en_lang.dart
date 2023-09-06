@@ -7,7 +7,7 @@ class English extends Language {
   String get code => 'en';
   String get langName => 'English';
 
-  String get title => 'Color picker';
+  String get title => 'Color Selector';
 
   String get wheelPicker => 'Wheel';
   String get palettePicker => 'Palette';
@@ -42,7 +42,7 @@ class English extends Language {
   String get networkImage => 'Network image';
   String get selectPhoto => 'Select photo';
 
-  String get favoriteColorsTitle => 'Favorite colors';
+  String get favoriteColorsTitle => 'Favourite colors';
   String get haventFavoritedAnyBefore =>
       'You haven\'t favorited any color yet!\nPress ';
   String get haventFavoritedAnyAfter =>

@@ -32,7 +32,6 @@ dependencies:
   url_launcher:
   url_strategy:
   window_manager:
-  cached_network_image:
 
 
 dev_dependencies:
