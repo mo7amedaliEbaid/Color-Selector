@@ -1,4 +1,6 @@
 # Color-Selector
+Fully functional color picker website working perfectly in flutter application.
+<br />
 Visit Website from [Here](https://todo-firestore-d6bd0.web.app/)
 <br />
 
