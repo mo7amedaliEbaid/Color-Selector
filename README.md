@@ -1,5 +1,5 @@
 # Color-Selector
-Visit Website fron [Here](https://todo-firestore-d6bd0.web.app/)
+Visit Website from [Here](https://todo-firestore-d6bd0.web.app/)
 <br />
 
 ### Download Apk
@@ -11,5 +11,5 @@ Visit Website fron [Here](https://todo-firestore-d6bd0.web.app/)
 <br />
 
 ### Screenshots
-Visit Website fron [Here](https://github.com/mo7amedaliEbaid/Color-Selector-Firestore/blob/b8df617491de9b8b5733b048bbb7655486b7068a/color_selector_firestore/screenshots)
+from [Here](https://github.com/mo7amedaliEbaid/Color-Selector-Firestore/blob/b8df617491de9b8b5733b048bbb7655486b7068a/color_selector_firestore/screenshots)
 <br />
