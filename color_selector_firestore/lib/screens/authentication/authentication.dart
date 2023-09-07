@@ -151,31 +151,42 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                     ),
                   ],
                 ),
+                SizedBox(
+                  height: 10,
+                ),
                 !isLoginScreen
                     ? Container(
                         height: 50,
                         width: 50,
                         decoration: BoxDecoration(shape: BoxShape.circle),
                         child: InkWell(
-                            onTap: () {
-                              selectedImage();
-                            },
-                            child: _imageURL != null
-                                ? CircleAvatar(
-                                    key: UniqueKey(),
-                                    backgroundImage: MemoryImage(
-                                      _imageURL!,
+                          onTap: () {
+                            selectedImage();
+                          },
+                          child: Stack(
+                            children: [
+                              _imageURL != null
+                                  ? CircleAvatar(
+                                      key: UniqueKey(),
+                                      backgroundImage: MemoryImage(
+                                        _imageURL!,
+                                      ),
+                                      backgroundColor:
+                                          Colors.white.withOpacity(0.13),
+                                      radius: 50,
+                                    )
+                                  : CircleAvatar(
+                                      key: UniqueKey(),
+                                      backgroundColor: Colors.white,
+                                      radius: 50,
                                     ),
-                                    backgroundColor:
-                                        Colors.white.withOpacity(0.13),
-                                    radius: 50,
-                                  )
-                                : CircleAvatar(
-                                    key: UniqueKey(),
-                                    backgroundColor: Colors.white,
-                                    radius: 50,
-                                  )),
-                      )
+                              Positioned(
+                                  bottom: 0,
+                                  right: 0,
+                                  child: Icon(Icons.camera_alt))
+                            ],
+                          ),
+                        ))
                     : SizedBox.shrink(),
                 const SizedBox(
                   height: 15,
@@ -267,8 +278,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                   onTap: () async {
                     if (!isLoginScreen) {
                       var result = await authdata.userSignup(
-                          _emailcontroller.text,
-                          _passwordcontroller.text);
+                          _emailcontroller.text, _passwordcontroller.text);
                       if (result == true) {
                         _firestoreMethods.createUser(
                             file: _imageURL ?? Uint8List(0),
@@ -319,11 +329,10 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
                 RichText(
                     text: TextSpan(children: [
                   TextSpan(
-                    text: isLoginScreen
-                        ? "Want to create your own account?   "
-                        : "Already have an account?   ",
-                    style: Theme.of(context).textTheme.bodyMedium
-                  ),
+                      text: isLoginScreen
+                          ? "Want to create your own account?   "
+                          : "Already have an account?   ",
+                      style: Theme.of(context).textTheme.bodyMedium),
                   TextSpan(
                       text: isLoginScreen ? "Register! " : "Log In!",
                       style: TextStyle(color: Colors.blue),

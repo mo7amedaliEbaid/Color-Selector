@@ -39,7 +39,9 @@ class ThemeDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = ThemeProvider.of(context);
     final lang = Language.of(context);
-    return SimpleDialog(
+    return  MediaQuery.sizeOf(context).height < 150
+        ? SizedBox.shrink()
+        :SimpleDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       title: Center(
         child: Text(
@@ -72,7 +74,9 @@ class _LanguageDialogState extends State<LanguageDialog> {
   Widget build(BuildContext context) {
     Language lang = Language.of(context);
     Language.languages.sort((a, b) => a.code == lang.code ? 1 : -1);
-    return SimpleDialog(
+    return  MediaQuery.sizeOf(context).height < 150
+        ? SizedBox.shrink()
+        :SimpleDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       title: Center(
         child: Text(
@@ -100,7 +104,9 @@ class InitialColorDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final lang = Language.of(context);
-    return SimpleDialog(
+    return  MediaQuery.sizeOf(context).height < 150
+        ? SizedBox.shrink()
+        :SimpleDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
       title: Text(lang.initialColor, textAlign: TextAlign.center),
       contentPadding: EdgeInsets.zero,
@@ -177,7 +183,8 @@ class _RGBIntialColorChangerState extends State<RGBIntialColorChanger>
           Button(
             color: Colors.green,
             splashColor: Colors.lightGreenAccent,
-            text: Text(lang.update, style: const TextStyle(color: Colors.white)),
+            text:
+                Text(lang.update, style: const TextStyle(color: Colors.white)),
             shadowEnabled: false,
             radius: const BorderRadius.vertical(bottom: Radius.circular(20)),
             onTap: () async {
@@ -265,92 +272,117 @@ class _ProfileDialogState extends State<ProfileDialog> {
   @override
   Widget build(BuildContext context) {
     UserDetails userDetails = Provider.of<UserProvider>(context).getUser;
-    return SimpleDialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-      title: Center(
-        child: Text(
-          userDetails.userName??"",
-          style: Theme.of(context).textTheme.titleLarge,
-        ),
-      ),
-      children: List<Widget>.generate(1, (index) {
-        return Container(
-          width: 300,
-          height: 270,
-          padding: EdgeInsets.all(15),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Container(
-                height: 70,
-                width: 70,
-                decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage("assets/logo.png"))
-                ),
-                child: CircleAvatar(
-                 backgroundColor: Colors.transparent,
-                  onBackgroundImageError: (exception, stackTrace) {
-                    log(exception.toString());
-                  },
-
-                  radius: 50,
-                  backgroundImage: NetworkImage(userDetails.imageURL??"https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg",
-
-                  ),
-                  foregroundImage: NetworkImage(userDetails.imageURL??"https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg"),
-                ),
+    int idx = userDetails.dateCreated.indexOf(" ");
+    List parts = [
+      userDetails.dateCreated?.substring(0, idx).trim() ?? "",
+      userDetails.dateCreated?.substring(idx + 1).trim() ?? ""
+    ];
+    String date = parts.first;
+    String time = parts.last;
+    log(parts.toString());
+    return MediaQuery.sizeOf(context).height < 150
+        ? SizedBox.shrink()
+        : SimpleDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+            title: Center(
+              child: Text(
+                userDetails.userName ?? "",
+                style: Theme.of(context).textTheme.titleLarge,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Joined at",
-                    style: TextStyle(color: Colors.green),
-                  ),
-                  Text(userDetails.dateCreated??DateTime.now().toString())
-                ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Email",
-                    style: TextStyle(color: Colors.green),
-                  ),
-                  Text(userDetails.email??"mo7amedaliebaid@gmail.com")
-                ],
-              ),
-              SizedBox(height: 20,),
-              InkWell(
-                onTap: () {
-                  Provider.of<UserProvider>(context,listen: false).signOut();
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(
-                          builder: (context) => AuthenticationPage()),
-                      (route) => false);
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 5,horizontal: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.green.shade400,
-                     borderRadius: BorderRadius.circular(10)
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Icon(Icons.arrow_back_ios),
-                      Text(
-                        "Sign Out",
-                        style: TextStyle(color: Colors.red),
+            ),
+            children: List<Widget>.generate(1, (index) {
+              return Container(
+                width: 300,
+                height: 290,
+                padding: EdgeInsets.all(15),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      height: 70,
+                      width: 70,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/logo.png"))),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.transparent,
+                        onBackgroundImageError: (exception, stackTrace) {
+                          log(exception.toString());
+                        },
+                        radius: 50,
+                        backgroundImage: NetworkImage(
+                          userDetails.imageURL ??
+                              "https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg",
+                        ),
+                        foregroundImage: NetworkImage(userDetails.imageURL ??
+                            "https://sm.ign.com/ign_nordic/cover/a/avatar-gen/avatar-generations_prsz.jpg"),
                       ),
-                    ],
-                  ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Joined at",
+                          style: TextStyle(color: Colors.green),
+                        ),
+                        Text(date)
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Time",
+                          style: TextStyle(color: Colors.green),
+                        ),
+                        Text(time)
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Email",
+                          style: TextStyle(color: Colors.green),
+                        ),
+                        Text(userDetails.email ?? "mo7amedaliebaid@gmail.com")
+                      ],
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        Provider.of<UserProvider>(context, listen: false)
+                            .signOut();
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (context) => AuthenticationPage()),
+                            (route) => false);
+                      },
+                      child: Container(
+                        padding:
+                            EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                        decoration: BoxDecoration(
+                            color: Colors.green.shade400,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(Icons.arrow_back_ios),
+                            Text(
+                              "Sign Out",
+                              style: TextStyle(color: Colors.red),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        );
-      }),
-    );
+              );
+            }),
+          );
   }
 }

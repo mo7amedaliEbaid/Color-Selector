@@ -8,7 +8,8 @@ import 'favorite_tile.dart';
 final favoritesKey = GlobalKey<AnimatedListState>();
 
 class FavoritesList extends StatelessWidget {
-  const FavoritesList({Key? key}) : super(key: key);
+   FavoritesList({Key? key}) : super(key: key);
+  final _favoritesKey = GlobalKey<AnimatedListState>();
 
   @override
   Widget build(BuildContext context) {

@@ -52,7 +52,7 @@ class _RootState extends State<Root> with TickerProviderStateMixin {
       menuScreen: const SettingsHome(),
       menuColor:
           ThemeProvider.isBright(context) ? Colors.white : Colors.grey[850]!,
-      endMenuScreen: const FavoritesList(),
+      endMenuScreen:  FavoritesList(),
       endMenuColor: Colors.blueGrey,
       contentScreen: DefaultTabController(
         key: scaffoldKey,
