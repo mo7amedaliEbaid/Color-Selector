@@ -16,7 +16,6 @@ import './screens/root.dart';
 import 'db/database_manager.dart';
 import 'firebase_options.dart';
 import 'lang/lang.dart';
-import 'db/database_manager.dart' as db;
 
 import 'utils.dart' as utils;
 import 'providers/theme_provider.dart';
