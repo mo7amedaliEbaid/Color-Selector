@@ -3,16 +3,16 @@ import 'package:flutter/material.dart';
 
 import '../../lang/lang.dart';
 import '../../db/database_manager.dart';
+import '../../utils.dart';
 import 'favorite_tile.dart';
 
-final favoritesKey = GlobalKey<AnimatedListState>();
 
 class FavoritesList extends StatelessWidget {
-   FavoritesList({Key? key}) : super(key: key);
-  final _favoritesKey = GlobalKey<AnimatedListState>();
-
+  const FavoritesList({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    final _favoritesKey = GlobalKey<AnimatedListState>();
+
     final lang = Language.of(context);
     return MinHeight(
       minScreenHeight: 200,
@@ -34,23 +34,26 @@ class FavoritesList extends StatelessWidget {
           Expanded(
             child: Stack(children: [
               AnimatedList(
-                key: favoritesKey,
-                // shrinkWrap: true,
+                key: _favoritesKey,//GlobalKeys.favoritesKey,
+             //   shrinkWrap: true,
+               //  physics: NeverScrollableScrollPhysics(),
                 initialItemCount: FavoriteColors.colors.length,
                 itemBuilder: (context, index, animation) {
                   var color = FavoriteColors.colors[index];
                   bool isFavorite = FavoriteColors.hasColor(color);
-                  return SlideTransition(
-                    position: Tween<Offset>(
-                      begin: const Offset(-1, 0),
-                      end: Offset.zero,
-                    ).animate(animation),
-                    child: FavoriteListTile(
-                      color: color,
-                      isFavorite: isFavorite,
-                      animation: animation,
-                    ),
-                  );
+                  return FavoriteColors.colors.length == 0
+                      ? SizedBox.shrink()
+                      : SlideTransition(
+                          position: Tween<Offset>(
+                            begin: const Offset(-1, 0),
+                            end: Offset.zero,
+                          ).animate(animation),
+                          child: FavoriteListTile(
+                            color: color,
+                            isFavorite: isFavorite,
+                            animation: animation,
+                          ),
+                        );
                 },
               ),
               AnimatedSwitcher(

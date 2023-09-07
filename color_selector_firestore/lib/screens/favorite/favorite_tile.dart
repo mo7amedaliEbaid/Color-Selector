@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../db/database_manager.dart';
 import '../../lang/lang.dart';
 import '../../db/database_manager.dart' as db;
 import '../color_info/color_info.dart';
@@ -36,7 +37,7 @@ class FavoriteListTile extends StatelessWidget {
             splashColor: Colors.transparent,
             onPressed: () async {
               // await _controller.forward();
-              await (isFavorite ? db.unfavorite(color) : db.favorite(color));
+              await (isFavorite ?  FavoriteColors().unfavorite(color) : FavoriteColors().favorite(color));
             },
           ),
           Expanded(

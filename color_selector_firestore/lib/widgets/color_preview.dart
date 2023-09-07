@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fl_toast/fl_toast.dart';
 
+import '../db/database_manager.dart';
 import '../lang/lang.dart';
 import '../db/database_manager.dart' as db;
 
@@ -79,8 +80,8 @@ class _ColorPreviewState extends State<ColorPreview> {
                 tooltip: isFavorite ? lang.unfavorite : lang.favorite,
                 onPressed: () async {
                   await (isFavorite
-                      ? db.unfavorite(widget.color!)
-                      : db.favorite(widget.color!));
+                      ? FavoriteColors().unfavorite(widget.color!)
+                      : FavoriteColors().favorite(widget.color!));
                   isFavorite = !isFavorite;
                   showTextToast(
                     text: isFavorite ? lang.favorited : lang.unfavorited,

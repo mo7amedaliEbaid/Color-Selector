@@ -1,7 +1,9 @@
 import 'package:color_picker/providers/auth_provider.dart';
 import 'package:color_picker/screens/authentication/authentication.dart';
+import 'package:color_picker/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -11,6 +13,7 @@ import 'package:url_strategy/url_strategy.dart';
 import 'package:window_manager/window_manager.dart';
 
 import './screens/root.dart';
+import 'db/database_manager.dart';
 import 'firebase_options.dart';
 import 'lang/lang.dart';
 import 'db/database_manager.dart' as db;
@@ -20,7 +23,7 @@ import 'providers/theme_provider.dart';
 
 part 'app_builder.dart';
 
-var _appBuilderKey = GlobalKey<AppBuilderState>();
+
 
 /// Checks if the current environment is a desktop environment.
 bool get isDesktop {
@@ -33,8 +36,23 @@ bool get isDesktop {
 }
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
+ await WidgetsFlutterBinding.ensureInitialized();
 
+ if (kIsWeb) setPathUrlStrategy();
+
+ if (isDesktop) {
+   await WindowManager.instance.ensureInitialized();
+   windowManager.waitUntilReadyToShow().then((_) async {
+     await windowManager.setTitleBarStyle(TitleBarStyle.hidden,
+         windowButtonVisibility: false);
+     await windowManager.setSize(const Size(755, 545));
+     await windowManager.setMinimumSize(const Size(755, 545));
+     await windowManager.center();
+     await windowManager.show();
+     await windowManager.setPreventClose(true);
+     await windowManager.setSkipTaskbar(false);
+   });
+ }
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -42,24 +60,14 @@ void main() async {
 
   utils.preferences = await SharedPreferences.getInstance();
 
-  await db.startDatabase();
-  await db.favorites();
+  await DatabaseManager.startDatabase();
+  await FavoriteColors.favorites();
 
-  if (kIsWeb) setPathUrlStrategy();
-
-  if (isDesktop) {
-    await WindowManager.instance.ensureInitialized();
-    windowManager.waitUntilReadyToShow().then((_) async {
-      await windowManager.setTitleBarStyle(TitleBarStyle.hidden,
-          windowButtonVisibility: false);
-      await windowManager.setSize(const Size(755, 545));
-      await windowManager.setMinimumSize(const Size(755, 545));
-      await windowManager.center();
-      await windowManager.show();
-      await windowManager.setPreventClose(true);
-      await windowManager.setSkipTaskbar(false);
-    });
-  }
+ FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+ PlatformDispatcher.instance.onError = (error, stack) {
+   FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
+   return true;
+ };
 
   runApp(
     MultiProvider(providers: [
@@ -82,7 +90,7 @@ class MyApp extends StatelessWidget {
       builder: (context, child) {
         final theme = ThemeProvider.of(context);
         return AppBuilder(
-          key: _appBuilderKey,
+          key: GlobalKeys.appBuilderKey,
           child: MaterialApp(
             onGenerateTitle: (_) => Language.of(null).title,
             debugShowCheckedModeBanner: false,

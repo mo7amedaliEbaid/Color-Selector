@@ -47,10 +47,10 @@ class English extends Language {
       'You haven\'t favorited any color yet!\nPress ';
   String get haventFavoritedAnyAfter =>
       ' in a color preview to favorite a color';
-  String get favorite => 'Favorite';
-  String get unfavorite => 'Unfavorite';
-  String get favorited => 'Favorited';
-  String get unfavorited => 'Unfavorited';
+  String get favorite => 'Favourite';
+  String get unfavorite => 'Unfavourite';
+  String get favorited => 'Favourited';
+  String get unfavorited => 'Unfavourited';
 
   String get copyToClipboard => 'Copy to clipboard';
   Widget copiedToClipboard(String text) {

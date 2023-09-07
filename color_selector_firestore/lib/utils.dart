@@ -3,6 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'main.dart';
+
+
+
+class GlobalKeys {
+ // static final favoritesKey = GlobalKey<AnimatedListState>();
+  static final appBuilderKey = GlobalKey<AppBuilderState>();
+}
 late SharedPreferences preferences;
 
 Color get initialColor => _initialColor(preferences.getString('initialColor'));

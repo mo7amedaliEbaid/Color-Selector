@@ -32,6 +32,7 @@ dependencies:
   url_launcher:
   url_strategy:
   window_manager:
+  firebase_crashlytics:
 
 
 dev_dependencies:

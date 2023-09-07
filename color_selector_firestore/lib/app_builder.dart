@@ -8,7 +8,7 @@ class AppBuilder extends StatefulWidget {
   @override
   AppBuilderState createState() => AppBuilderState();
 
-  static AppBuilderState get state => _appBuilderKey.currentState!;
+  static AppBuilderState get state => GlobalKeys.appBuilderKey.currentState!;
 }
 
 class AppBuilderState extends State<AppBuilder> {
